@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block nav %}
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">Africa Literary Project</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+                    class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                {% if user.is_authenticated %}
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="{% url 'application:logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'application:login' %}">Login</a></li>
+                    <li><a href="{% url 'application:register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        {% if user.is_authenticated %}
+            <li><a href="#">My Profile</a></li>
+            <li><a href="{% url 'application:logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'application:login' %}">Login</a></li>
+            <li><a href="{% url 'application:register' %}">Register</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+<script type="text/javascript"
+        src="{% static 'materialize/js/materialize.min.js' %}"></script>
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.sidenav');
+            var options = {}
+            var instances = M.Sidenav.init(elems, options);
+        });
+    </script>
+{% endblock %}
