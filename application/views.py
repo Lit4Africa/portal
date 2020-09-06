@@ -1,9 +1,8 @@
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from application.models import Member
+from application.models import *
 
 
 def register(request):
@@ -41,7 +40,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('application:profile')
+            return redirect('application:login')
         else:
             # Return an 'invalid login' error message.
             ...
@@ -51,9 +50,26 @@ def login_view(request):
 
 def apply(request):
     if request.method == 'POST':
+        user = request.user
+        member = Member.objects.get(user=user)
+        member.objectives.set(request.POST['objectives'])
+        member.teams.set(request.POST['teams'])
+        member.idea_promote_reading = request.POST['idea_promote_reading']
+        member.idea_project_successful = request.POST[
+            'idea_successful_project']
+        member.idea_achieve_objectives = request.POST[
+            'idea_achieve_objectives']
+        member.is_experienced_writer = request.POST['is_writer']
+        member.idea_funding = request.POST['idea_funding']
+        member.can_donate_for_bookdrive = request.POST['can_donate']
+        member.thoughts_on_writing_space = request.POST['create_space']
+        member.save()
         return redirect('application:login')
     elif request.method == 'GET':
-        return render(request, 'application-form.html')
+        teams = Team.objects.all()
+        objectives = Objective.objects.all()
+        return render(request, 'application-form.html', {'teams': teams,
+                                                         'objectives': objectives})
 
 
 def logout_view(request):

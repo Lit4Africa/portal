@@ -1,0 +1,196 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+{% block title %}
+    Register
+{% endblock %}
+{% block content %}
+    <div class="container section">
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <div class="card-panel">
+                    <form action="{% url 'application:apply' %}"
+                          method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="idea_successful_project"
+                                          name="idea_successful_project"
+                                          required maxlength="2000"
+                                          class="materialize-textarea"
+                                          data-length="2000"></textarea>
+                                <label for="idea_successful_project">What do
+                                    you think we can do to make this
+                                    project successful?</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="idea_promote_reading"
+                                          name="idea_promote_reading"
+                                          required maxlength="2000"
+                                          class="materialize-textarea"
+                                          data-length="2000"></textarea>
+                                <label for="idea_promote_reading">What
+                                    should be done to promote the reading
+                                    culture in Nigeria/Africa?</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select multiple id="objectives"
+                                        name="objectives">
+                                    {% for objective in objectives %}
+                                        <option value="{{ objective.id }}">{{ objective.description }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="objectives">Which of the
+                                    core objectives do you feel you can help
+                                    with?</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="idea_achieve_objectives"
+                                          name="idea_achieve_objectives"
+                                          required maxlength="2000"
+                                          class="materialize-textarea"
+                                          data-length="2000"></textarea>
+                                <label for="idea_achieve_objectives">How do you
+                                    feel you can help this movement achieve
+                                    it’s objectives?</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select multiple name="teams">
+                                    {% for team in teams %}
+                                        <option value="{{ team.id }}">
+                                            {{ team.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label>Which Team(s)
+                                    would you work best with?</label>
+                            </div>
+                            <div class="col s12">
+                                <label>Do you have prior knowledge and
+                                    experience in writing or editing?</label>
+                                <div>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="is_writer"
+                                                   type="radio" value="Y"/>
+                                            <span>Yes</span>
+                                        </label>
+                                    </p>
+                                    <p><label>
+                                        <input class="with-gap"
+                                               name="is_writer"
+                                               type="radio" value="N"/>
+                                        <span>No</span>
+                                    </label>
+                                    </p>
+                                    <p><label>
+                                        <input class="with-gap"
+                                               name="is_writer"
+                                               type="radio" value="M"/>
+                                        <span>Maybe</span>
+                                    </label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="idea_funding"
+                                          name="idea_funding"
+                                          required maxlength="2000"
+                                          class="materialize-textarea"
+                                          data-length="2000"></textarea>
+                                <label for="idea_funding">How best
+                                    do you think we can get funding to make
+                                    this a reality?</label>
+                            </div>
+                            <div class="col s12">
+                                <label>Can you donate at least 10 old books
+                                    for the book drive?</label>
+                                <div>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="can_donate"
+                                                   type="radio" value="Y"/>
+                                            <span>Yes</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="can_donate"
+                                                   type="radio" value="N"/>
+                                            <span>No</span>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <label>What do you think about creating a
+                                    writing space (eg Medium) for young writers
+                                    (7-18 years)?</label>
+                                <div>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="create_space"
+                                                   type="radio" value="SA"/>
+                                            <span>Strongly Agree</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="create_space"
+                                                   type="radio" value="A"/>
+                                            <span>Agree</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="create_space"
+                                                   type="radio" value="N"/>
+                                            <span>Neutral</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="create_space"
+                                                   type="radio" value="D"/>
+                                            <span>Disagree</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input class="with-gap"
+                                                   name="create_space"
+                                                   type="radio" value="SD"/>
+                                            <span>Strongly Disagree</span>
+                                        </label>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="center-align">
+                            <button class="btn waves-effect waves-light"
+                                    type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+        $(document).ready(function () {
+            $('textarea').characterCounter();
+        });
+    </script>
+{% endblock %}

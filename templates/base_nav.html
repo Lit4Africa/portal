@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block styles %}
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
+{% endblock %}
 {% block nav %}
     <nav>
         <div class="nav-wrapper container">
@@ -8,12 +21,14 @@
                     class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
-                    <li><a href="#">My Profile</a></li>
+                    <li><a href="{% url 'application:apply' %}">Apply</a></li>
                     <li><a href="{% url 'application:logout' %}">Logout</a>
                     </li>
                 {% else %}
                     <li><a href="{% url 'application:login' %}">Login</a></li>
-                    <li><a href="{% url 'application:register' %}">Register</a>
+                    <li><a href="{% url 'application:register' %}">Register
+                        and Apply
+                    </a>
                     </li>
                 {% endif %}
             </ul>
@@ -21,24 +36,38 @@
     </nav>
     <ul class="sidenav" id="mobile-demo">
         {% if user.is_authenticated %}
-            <li><a href="#">My Profile</a></li>
-            <li><a href="{% url 'application:logout' %}">Logout</a></li>
+            <li><a href="{% url 'application:apply' %}">Apply</a></li>
+            <li><a href="{% url 'application:logout' %}">Logout</a>
+            </li>
         {% else %}
             <li><a href="{% url 'application:login' %}">Login</a></li>
-            <li><a href="{% url 'application:register' %}">Register</a></li>
+            <li><a href="{% url 'application:register' %}">Register
+                and Apply
+            </a>
+            </li>
         {% endif %}
     </ul>
 {% endblock %}
+{% block footer %}
+    <footer class="page-footer" style="padding-top: 0">
+        <div class="footer-copyright" style="margin-top: 0">
+            <div class="container">
+                © 2020 Africa Literary Project
+                <a class="grey-text text-lighten-4 right"
+                   href="{% url 'application:apply' %}">Apply to be a
+                    Member</a>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
 
-<script type="text/javascript"
-        src="{% static 'materialize/js/materialize.min.js' %}"></script>
 
 {% block scripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.sidenav');
-            var options = {}
-            var instances = M.Sidenav.init(elems, options);
-        });
-    </script>
 {% endblock %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    });
+</script>
