@@ -1,0 +1,120 @@
+{% extends 'base_nav.html' %}
+{% block title %}
+    Members
+{% endblock %}
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="active"
+                                                  href="#approved">Approved</a>
+                        </li>
+                        <li class="tab col s3"><a href="#pending">Pending</a>
+                        </li>
+                        <li class="tab col s3"><a
+                                href="#disapproved">Disapproved</a></li>
+                        <li class="tab col s3"><a
+                                href="#incomplete">In Progress</a></li>
+                    </ul>
+                </div>
+                <div id="approved" class="row">
+                    {% for application in approved %}
+                        <div class="col s3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{ application.image.url }}"
+                                         alt="Profile Image"
+                                         style="height: 30vh">
+                                    <a class="btn-floating halfway-fab
+                                    waves-effect waves-light pink darken-2"
+                                       href="{% url 'application:user' application.user.id %}">
+                                        <i class="material-icons">visibility</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">{{ application.user.get_full_name }}</span>
+                                    <p>{{ application.user.email }}</p>
+                                    <p>{{ application.telephone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="pending" class="row">
+                    {% for application in pending %}
+                        <div class="col s3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{ application.image.url }}"
+                                         alt="Profile Image"
+                                         style="height: 30vh">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">{{ application.user.get_full_name }}</span>
+                                    <p>{{ application.user.email }}</p>
+                                    <p>{{ application.telephone }}</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="{% url 'application:approve' application.user.id %}">Approve</a>
+                                    <a href="{% url 'application:disapprove' application.user.id %}">Disapprove</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="disapproved" class="row">
+                    {% for application in disapproved %}
+                        <div class="col s3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{ application.image.url }}"
+                                         alt="Profile Image"
+                                         style="height: 30vh">
+                                    <a class="btn-floating halfway-fab
+                                    waves-effect waves-light pink darken-2"
+                                       href="{% url 'application:user' application.user.id %}">
+                                        <i class="material-icons">visibility</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">{{ application.user.get_full_name }}</span>
+                                    <p>{{ application.user.email }}</p>
+                                    <p>{{ application.telephone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="incomplete" class="row">
+                    {% for application in incomplete %}
+                        <div class="col s3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{ application.image.url }}"
+                                         alt="Profile Image"
+                                         style="height: 30vh">
+                                    <a class="btn-floating halfway-fab
+                                    waves-effect waves-light pink darken-2"
+                                       href="{% url 'application:user' application.user.id %}">
+                                        <i class="material-icons">visibility</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">{{ application.user.get_full_name }}</span>
+                                    <p>{{ application.user.email }}</p>
+                                    <p>{{ application.telephone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $('.tabs').tabs();
+        });
+    </script>
+{% endblock %}

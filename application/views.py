@@ -158,3 +158,21 @@ def disapprove(request, pk):
         return redirect('application:user', pk)
     else:
         return redirect('application:profile')
+
+
+@login_required
+def user_list(request):
+    """
+    Fetch all registered users to display
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    approved = Member.objects.filter(is_approved=True)
+    disapproved = Member.objects.filter(is_approved=False)
+    pending = Member.objects.filter(is_approved=None,
+                                    is_experienced_writer__in=['Y', 'N', 'M'])
+    incomplete = Member.objects.filter(is_experienced_writer=None)
+    return render(request, 'users.html', {'approved': approved,
+                                          'disapproved': disapproved,
+                                          'pending': pending,
+                                          'incomplete': incomplete})

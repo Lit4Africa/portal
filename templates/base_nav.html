@@ -21,7 +21,14 @@
                     class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'application:apply' %}">Apply</a></li>
+                    {% if user.is_superuser %}
+                        <li><a href="{% url 'application:users' %}">Members</a>
+                        </li>
+                    {% endif %}
+                    {% if user.member.is_experienced_writer is None %}
+                        <li><a href="{% url 'application:apply' %}">Apply</a>
+                        </li>
+                    {% endif %}
                     <li><a href="{% url 'application:profile' %}">My
                         Profile</a></li>
                     <li><a href="{% url 'application:logout' %}">Logout</a>
@@ -38,17 +45,18 @@
     </nav>
     <ul class="sidenav" id="mobile-demo">
         {% if user.is_authenticated %}
-            <li><a href="{% url 'application:apply' %}">Apply</a></li>
-            <li><a href="{% url 'application:profile' %}">My
-                Profile</a></li>
-            <li><a href="{% url 'application:logout' %}">Logout</a>
-            </li>
+            {% if user.is_superuser %}
+                <li><a href="{% url 'application:users' %}">Members</a></li>
+            {% endif %}
+            {% if user.member.is_experienced_writer is None %}
+                <li><a href="{% url 'application:apply' %}">Apply</a></li>
+            {% endif %}
+            <li><a href="{% url 'application:profile' %}">My Profile</a></li>
+            <li><a href="{% url 'application:logout' %}">Logout</a></li>
         {% else %}
             <li><a href="{% url 'application:login' %}">Login</a></li>
-            <li><a href="{% url 'application:register' %}">Register
-                and Apply
-            </a>
-            </li>
+            <li><a href="{% url 'application:register' %}">Register and
+                Apply </a></li>
         {% endif %}
     </ul>
 {% endblock %}

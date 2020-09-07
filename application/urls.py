@@ -27,6 +27,7 @@ urlpatterns = [
     path('apply/', views.apply, name='apply'),
     path('account/', views.profile, name='profile'),
     path('users/<int:pk>/', views.user_detail, name='user'),
+    path('users/', views.user_list, name='users'),
     path('users/<int:pk>/approve/', views.approve, name='approve'),
     path('users/<int:pk>/disapprove/', views.disapprove, name='disapprove'),
 ]
