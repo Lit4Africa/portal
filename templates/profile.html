@@ -1,7 +1,7 @@
 {% extends 'base_nav.html' %}
 {% load humanize %}
 {% block title %}
-    {{ user.get_full_name }}
+    {{ user_profile.get_full_name }}
 {% endblock %}
 {% block styles %}
     <style>
@@ -18,40 +18,40 @@
                 <div class="col s10 offset-s1">
                     <div class="card horizontal pink darken-2 white-text">
                         <div class="card-image">
-                            <img src="{{ user.member.image.url }}"
+                            <img src="{{ user_profile.member.image.url }}"
                                  alt="Profile Image">
                         </div>
                         <div class="card-content">
-                            <h3>{{ user.get_full_name }}</h3>
+                            <h3>{{ user_profile.get_full_name }}</h3>
                             <h6>
                             <span>
                                 <i class="material-icons">person</i>
-                            </span>{{ user.username }}
+                            </span>{{ user_profile.username }}
                             </h6>
                             <h6>
                             <span>
                                 <i class="material-icons">email</i>
-                            </span>{{ user.email }}
+                            </span>{{ user_profile.email }}
                             </h6>
                             <h6>
                             <span>
                                 <i class="material-icons">phone</i>
-                            </span>{{ user.member.telephone }}
+                            </span>{{ user_profile.member.telephone }}
                             </h6>
                             <h6>
                             <span>
                                 <i class="material-icons">today</i>
-                            </span>{{ user.member.DOB|naturalday }}
+                            </span>{{ user_profile.member.DOB|naturalday }}
                             </h6>
                             <h6>
                             <span>
                                 <i class="material-icons">palette</i>
-                            </span>{{ user.member.fav_color }}
+                            </span>{{ user_profile.member.fav_color }}
                             </h6>
                             <h6>
                             <span>
                                 <i class="material-icons">wc</i>
-                            </span>{{ user.member.get_gender_display }}
+                            </span>{{ user_profile.member.get_gender_display }}
                             </h6>
                         </div>
                     </div>
@@ -61,19 +61,19 @@
                             <div>
                                 <h5>What do you think we can do to make this
                                     project successful?</h5>
-                                <p>{{ user.member.idea_project_successful }}</p>
+                                <p>{{ user_profile.member.idea_project_successful }}</p>
                             </div>
                             <div>
                                 <h5>What should be done to promote the reading
                                     culture in Nigeria/Africa?</h5>
-                                <p>{{ user.member.idea_promote_reading }}</p>
+                                <p>{{ user_profile.member.idea_promote_reading }}</p>
                             </div>
                             <div>
                                 <h5>Which of the core objectives do you feel
                                     you
                                     can help with?</h5>
                                 <ul>
-                                    {% for objective in user.member.objectives.all %}
+                                    {% for objective in user_profile.member.objectives.all %}
                                         <li class="form-response">{{ objective }}</li>
                                     {% endfor %}
                                 </ul>
@@ -81,13 +81,13 @@
                             <div>
                                 <h5>How do you feel you can help this movement
                                     achieve it’s objectives?</h5>
-                                <p>{{ user.member.idea_achieve_objectives }}</p>
+                                <p>{{ user_profile.member.idea_achieve_objectives }}</p>
                             </div>
                             <div>
                                 <h5>Which Team(s) would you work best
                                     with?</h5>
                                 <ul>
-                                    {% for team in user.member.teams.all %}
+                                    {% for team in user_profile.member.teams.all %}
                                         <li class="form-response">{{ team }}</li>
                                     {% endfor %}
                                 </ul>
@@ -95,42 +95,58 @@
                             <div>
                                 <h5>Do you have prior knowledge and experience
                                     in writing or editing?</h5>
-                                <p>{{ user.member.get_is_experienced_writer_display }}</p>
+                                <p>{{ user_profile.member.get_is_experienced_writer_display }}</p>
                             </div>
                             <div>
                                 <h5>How best do you think we can get funding to
                                     make this a reality?</h5>
-                                <p>{{ user.member.idea_funding }}</p>
+                                <p>{{ user_profile.member.idea_funding }}</p>
                             </div>
                             <div>
                                 <h5>Can you donate at least 10 old books for
                                     the
                                     book drive?</h5>
-                                <p>{{ user.member.get_can_donate_for_bookdrive_display }}</p>
+                                <p>{{ user_profile.member.get_can_donate_for_bookdrive_display }}</p>
                             </div>
                             <div>
                                 <h5>What do you think about creating a writing
                                     space (eg Medium) for young writers (7-18
                                     years)?</h5>
-                                <p>{{ user.member.get_thoughts_on_writing_space_display }}</p>
+                                <p>{{ user_profile.member.get_thoughts_on_writing_space_display }}</p>
                             </div>
-                            {% if user.member.is_approved %}
+                            {% if user_profile.member.is_approved is None %}
+                                {% if user.is_superuser %}
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="{% url 'application:approve' user_profile.id %}">Approve</a>
+                                        <a href="{% url 'application:disapprove' user_profile.id %}">Disapprove</a>
+                                    </div>
+                                {% else %}
+                                    <div class="pink darken-2">
+                                        <h6 class="white-text center-align"
+                                            style="padding: 1vw;margin: 2vw">
+                                            AWAITING APPROVAL</h6>
+                                    </div>
+                                    </div>
+                                {% endif %}
+                            {% elif user_profile.member.is_approved == False %}
                                 <div class="pink darken-2">
                                     <h6 class="white-text center-align"
                                         style="padding: 1vw;margin: 2vw">
-                                        APPROVED MEMBER</h6>
+                                        DISAPPROVED</h6>
                                 </div>
                                 </div>
-                            {% else %}
+                            {% elif user_profile.member.is_approved == True %}
+                                <div class="pink darken-2">
+                                    <h6 class="white-text center-align"
+                                        style="padding: 1vw;margin: 2vw">
+                                        APPROVED</h6>
                                 </div>
-                                <div class="card-action">
-                                    <a href="#">Approve</a>
-                                    <a href="#">Disapprove</a>
                                 </div>
                             {% endif %}
-                </div>
-            </div>
         </div>
+    </div>
+    </div>
     </div>
     </div>
 {% endblock %}
