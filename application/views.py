@@ -50,7 +50,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('application:login')
+            return redirect('application:profile')
         else:
             # Return an 'invalid login' error message.
             ...
@@ -96,3 +96,13 @@ def logout_view(request):
     """
     logout(request)
     return redirect('application:login')
+
+
+def profile(request):
+    """
+    Load profile of logged in user
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    user = request.user
+    return render(request, 'profile.html', {'user': user})
