@@ -6,6 +6,11 @@ from application.models import *
 
 
 def register(request):
+    """
+    Navigate to register.html or handle POST request and create new user.
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -34,6 +39,11 @@ def register(request):
 
 
 def login_view(request):
+    """
+    Navigate to login.html or handle POST request and log in user.
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -49,6 +59,12 @@ def login_view(request):
 
 
 def apply(request):
+    """
+    Navigate to application-form.html or handle POST request and submit user
+    application
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
     if request.method == 'POST':
         user = request.user
         member = Member.objects.get(user=user)
@@ -68,10 +84,15 @@ def apply(request):
     elif request.method == 'GET':
         teams = Team.objects.all()
         objectives = Objective.objects.all()
-        return render(request, 'application-form.html', {'teams': teams,
-                                                         'objectives': objectives})
+        return render(request, 'application-form.html',
+                      {'teams': teams, 'objectives': objectives})
 
 
 def logout_view(request):
+    """
+    Log user out
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
     logout(request)
     return redirect('application:login')
