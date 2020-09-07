@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from application.models import *
@@ -58,6 +59,7 @@ def login_view(request):
         return render(request, 'login.html')
 
 
+@login_required
 def apply(request):
     """
     Navigate to application-form.html or handle POST request and submit user
@@ -98,6 +100,7 @@ def logout_view(request):
     return redirect('application:login')
 
 
+@login_required
 def profile(request):
     """
     Load profile of logged in user
@@ -105,4 +108,53 @@ def profile(request):
     :return: render to correct template
     """
     user = request.user
-    return render(request, 'profile.html', {'user': user})
+    return render(request, 'profile.html', {'user_profile': user})
+
+
+@login_required
+def user_detail(request, pk):
+    """
+    Load profile of logged in user
+    :param pk: Primary Key that identifies user's profile to be loaded
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    if request.user.is_superuser:
+        user_profile = User.objects.get(id=pk)
+        return render(request, 'profile.html', {'user_profile': user_profile})
+    else:
+        return redirect('application:profile')
+
+
+@login_required
+def approve(request, pk):
+    """
+    Approve user application
+    :param pk: Primary Key that identifies user to be approved
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    if request.user.is_superuser:
+        user = User.objects.get(id=pk)
+        user.member.is_approved = True
+        user.member.save()
+        return redirect('application:user', pk)
+    else:
+        return redirect('application:profile')
+
+
+@login_required
+def disapprove(request, pk):
+    """
+    Disapprove user application
+    :param pk: Primary Key that identifies user to be approved
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    if request.user.is_superuser:
+        user = User.objects.get(id=pk)
+        user.member.is_approved = False
+        user.member.save()
+        return redirect('application:user', pk)
+    else:
+        return redirect('application:profile')

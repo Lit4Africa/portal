@@ -70,23 +70,26 @@ class Member(models.Model):
     DOB = models.DateField()
     about = models.TextField()
     telephone = models.CharField(max_length=20)
-    image = models.ImageField(null=True, upload_to=profile_image)
+    image = models.ImageField(null=True, blank=True, upload_to=profile_image)
     gender = models.CharField(choices=GENDER, max_length=30)
     address = models.TextField()
     fav_color = models.CharField(max_length=30)
     objectives = models.ManyToManyField(Objective)
     teams = models.ManyToManyField(Team)
-    idea_promote_reading = models.TextField(null=True)
-    idea_project_successful = models.TextField(null=True)
-    idea_achieve_objectives = models.TextField(null=True)
+    idea_promote_reading = models.TextField(null=True, blank=True)
+    idea_project_successful = models.TextField(null=True, blank=True)
+    idea_achieve_objectives = models.TextField(null=True, blank=True)
     is_experienced_writer = models.CharField(max_length=10, null=True,
+                                             blank=True,
                                              choices=IS_EXPERIENCED_WRITER)
-    idea_funding = models.TextField(null=True)
+    idea_funding = models.TextField(null=True, blank=True)
     can_donate_for_bookdrive = models.CharField(max_length=10, null=True,
+                                                blank=True,
                                                 choices=CAN_DONATE_FOR_BOOKDRIVE)
     thoughts_on_writing_space = models.CharField(max_length=20, null=True,
+                                                 blank=True,
                                                  choices=THOUGHTS_ON_WRITING_SPACE)
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
         return self.user.get_full_name()
