@@ -5,11 +5,21 @@ from django.db import models
 # Create your models here.
 
 def profile_image(instance, filename):
+    """
+    This function generates the path where a profile image should be saved to.
+    :param instance: Instance of Member to be saved
+    :param filename: Name of file to be uploaded
+    :return: Path of file
+    """
     ext = filename.split('.')[-1]
     return 'image/user_{0}.{1}'.format(instance.user.id, ext)
 
 
 class Team(models.Model):
+    """
+    This represents a Team object in our database. Each team has a team lead
+    and a deputy team lead.
+    """
     name = models.CharField(max_length=30)
     lead = models.ForeignKey(User, on_delete=models.PROTECT,
                              related_name='team_lead', null=True, blank=True)
@@ -22,6 +32,9 @@ class Team(models.Model):
 
 
 class Objective(models.Model):
+    """
+    This represents an objective of Africa Literary Project in our database.
+    """
     description = models.TextField()
 
     def __str__(self):
@@ -29,6 +42,10 @@ class Objective(models.Model):
 
 
 class Member(models.Model):
+    """
+    This represents a member account in our database. When a member is
+    created their approval defaults to False until they are approved by HR.
+    """
     GENDER = [
         ('F', 'Female'),
         ('M', 'Male')
@@ -45,7 +62,7 @@ class Member(models.Model):
         ('D', 'Disagree'),
         ('SD', 'Strongly Disagree')
     ]
-    CAN_DONATE_FOR_BOOKDRIVE=[
+    CAN_DONATE_FOR_BOOKDRIVE = [
         ('Y', 'Yes'),
         ('N', 'No')
     ]
@@ -66,7 +83,7 @@ class Member(models.Model):
                                              choices=IS_EXPERIENCED_WRITER)
     idea_funding = models.TextField(null=True)
     can_donate_for_bookdrive = models.CharField(max_length=10, null=True,
-                                             choices=CAN_DONATE_FOR_BOOKDRIVE)
+                                                choices=CAN_DONATE_FOR_BOOKDRIVE)
     thoughts_on_writing_space = models.CharField(max_length=20, null=True,
                                                  choices=THOUGHTS_ON_WRITING_SPACE)
     is_approved = models.BooleanField(default=False)
