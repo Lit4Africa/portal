@@ -54,13 +54,12 @@
                                     it’s objectives?</label>
                             </div>
                             <div class="input-field col s12">
-                                <select multiple name="teams">
+                                <select multiple name="teams" id="teams">
                                     {% for team in teams %}
-                                        <option value="{{ team.id }}">
-                                            {{ team.name }}</option>
+                                        <option value="{{ team.id }}">{{ team.name }}</option>
                                     {% endfor %}
                                 </select>
-                                <label>Which Team(s)
+                                <label for="teams">Which Team(s)
                                     would you work best with?</label>
                             </div>
                             <div class="col s12">
@@ -185,11 +184,8 @@
 {% endblock %}
 {% block scripts %}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems);
-        });
-        $(document).ready(function () {
+        $('document').ready(function () {
+            $('select').formSelect();
             $('textarea').characterCounter();
         });
     </script>
