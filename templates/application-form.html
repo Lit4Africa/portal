@@ -32,16 +32,20 @@
                                     should be done to promote the reading
                                     culture in Nigeria/Africa?</label>
                             </div>
-                            <div class="input-field col s12">
-                                <select multiple id="objectives"
-                                        name="objectives">
-                                    {% for objective in objectives %}
-                                        <option value="{{ objective.id }}">{{ objective.description }}</option>
-                                    {% endfor %}
-                                </select>
-                                <label for="objectives">Which of the
+                            <div class="col s12">
+                                <label>Which of the
                                     core objectives do you feel you can help
                                     with?</label>
+                                {% for objective in objectives %}
+                                    <p>
+                                        <label>
+                                            <input type="checkbox"
+                                                   value="{{ objective.id }}"
+                                                   name="objectives"/>
+                                            <span>{{ objective.description }}</span>
+                                        </label>
+                                    </p>
+                                {% endfor %}
                             </div>
                             <div class="input-field col s12">
                                 <textarea id="idea_achieve_objectives"
@@ -53,14 +57,19 @@
                                     feel you can help this movement achieve
                                     it’s objectives?</label>
                             </div>
-                            <div class="input-field col s12">
-                                <select multiple name="teams" id="teams">
-                                    {% for team in teams %}
-                                        <option value="{{ team.id }}">{{ team.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <label for="teams">Which Team(s)
+                            <div class="col s12">
+                                <label>Which Team(s)
                                     would you work best with?</label>
+                                {% for team in teams %}
+                                    <p>
+                                        <label>
+                                            <input type="checkbox"
+                                                   value="{{ team.id }}"
+                                                   name="teams"/>
+                                            <span>{{ team.name }}</span>
+                                        </label>
+                                    </p>
+                                {% endfor %}
                             </div>
                             <div class="col s12">
                                 <label>Do you have prior knowledge and
