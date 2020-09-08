@@ -1,4 +1,5 @@
 # Create your views here.
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
@@ -34,6 +35,7 @@ def register(request):
                                        DOB=DOB, address=address, about=about,
                                        image=image, gender=gender)
         member.save()
+        messages.success(request, f"New account created: {username}")
         return redirect('application:login')
     elif request.method == 'GET':
         return render(request, 'register.html')
@@ -53,8 +55,8 @@ def login_view(request):
             login(request, user)
             return redirect('application:profile')
         else:
-            # Return an 'invalid login' error message.
-            ...
+            messages.error(request, 'Username or Password incorrect')
+            return render(request, 'login.html')
     elif request.method == 'GET':
         return render(request, 'login.html')
 
@@ -87,6 +89,8 @@ def apply(request):
         member.can_donate_for_bookdrive = request.POST['can_donate']
         member.thoughts_on_writing_space = request.POST['create_space']
         member.save()
+        messages.success(request,
+                         f"Application submitted for {member.user.username}")
         return redirect('application:profile')
     elif request.method == 'GET':
         teams = Team.objects.all()
@@ -143,6 +147,7 @@ def approve(request, pk):
         user = User.objects.get(id=pk)
         user.member.is_approved = True
         user.member.save()
+        messages.success(request, f"Membership approved for {user.username}")
         return redirect('application:user', pk)
     else:
         return redirect('application:profile')
@@ -160,6 +165,8 @@ def disapprove(request, pk):
         user = User.objects.get(id=pk)
         user.member.is_approved = False
         user.member.save()
+        messages.success(request, f"Membership disapproved for"
+                                  f" {user.username}")
         return redirect('application:user', pk)
     else:
         return redirect('application:profile')

@@ -1,22 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block styles %}
-    <style>
-        body {
-            display: flex !important;
-            min-height: 100vh !important;
-            flex-direction: column !important;
-        }
-
-        main {
-            flex: 1 0 auto !important;
-        }
-    </style>
 {% endblock %}
 {% block nav %}
     <nav>
         <div class="nav-wrapper container">
-            <a href="#" class="brand-logo">Africa Literary Project</a>
+            <a href="{% url 'application:profile' %}" class="brand-logo">Africa
+                Literary Project</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
                     class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">

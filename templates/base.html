@@ -17,6 +17,17 @@
         {% block title %}
         {% endblock %} | Africa Literary Project Portal
     </title>
+    <style>
+        body {
+            display: flex !important;
+            min-height: 100vh !important;
+            flex-direction: column !important;
+        }
+
+        main {
+            flex: 1 0 auto !important;
+        }
+    </style>
     {% block styles %}
     {% endblock %}
     <!--Import JQuery-->
@@ -38,6 +49,15 @@
 <script type="text/javascript"
         src="{% static 'materialize/js/materialize.min.js' %}"></script>
 
+{% if messages %}
+    {% for message in messages %}
+        <script>M.toast({
+            html: "{{ message }}",
+            classes: 'pink darken-2 rounded',
+            displayLength: 2000
+        });</script>
+    {% endfor %}
+{% endif %}
 {% block scripts %}
 {% endblock %}
 </body>
