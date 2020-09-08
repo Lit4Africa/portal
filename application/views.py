@@ -70,8 +70,13 @@ def apply(request):
     if request.method == 'POST':
         user = request.user
         member = Member.objects.get(user=user)
-        member.objectives.set(request.POST['objectives'])
-        member.teams.set(request.POST['teams'])
+        member.objectives.clear()
+        member.teams.clear()
+        objectives = request.POST.getlist('objectives')
+        teams = request.POST.getlist('teams')
+        print('teams:', teams, '\nobjectives:', objectives)
+        member.objectives.set(objectives)
+        member.teams.set(teams)
         member.idea_promote_reading = request.POST['idea_promote_reading']
         member.idea_project_successful = request.POST[
             'idea_successful_project']
@@ -82,7 +87,7 @@ def apply(request):
         member.can_donate_for_bookdrive = request.POST['can_donate']
         member.thoughts_on_writing_space = request.POST['create_space']
         member.save()
-        return redirect('application:login')
+        return redirect('application:profile')
     elif request.method == 'GET':
         teams = Team.objects.all()
         objectives = Objective.objects.all()
