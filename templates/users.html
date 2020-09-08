@@ -21,7 +21,7 @@
                 </div>
                 <div id="approved" class="row">
                     {% for application in approved %}
-                        <div class="col s3">
+                        <div class="col s12 m6 l4">
                             <div class="card">
                                 <div class="card-image">
                                     <img src="{{ application.image.url }}"
@@ -43,7 +43,7 @@
                 </div>
                 <div id="pending" class="row">
                     {% for application in pending %}
-                        <div class="col s3">
+                        <div class="col s12 m6 l4">
                             <div class="card">
                                 <div class="card-image">
                                     <img src="{{ application.image.url }}"
@@ -65,7 +65,7 @@
                 </div>
                 <div id="disapproved" class="row">
                     {% for application in disapproved %}
-                        <div class="col s3">
+                        <div class="col s12 m6 l4">
                             <div class="card">
                                 <div class="card-image">
                                     <img src="{{ application.image.url }}"
@@ -87,7 +87,7 @@
                 </div>
                 <div id="incomplete" class="row">
                     {% for application in incomplete %}
-                        <div class="col s3">
+                        <div class="col s12 m6 l4">
                             <div class="card">
                                 <div class="card-image">
                                     <img src="{{ application.image.url }}"
