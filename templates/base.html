@@ -51,11 +51,31 @@
 
 {% if messages %}
     {% for message in messages %}
-        <script>M.toast({
-            html: "{{ message }}",
-            classes: 'pink darken-2 rounded',
-            displayLength: 2000
-        });</script>
+        {% if message.tags == 'success' %}
+            <script>M.toast({
+                html: "{{message}}",
+                classes: 'green rounded',
+                displayLength: 2000
+            });</script>
+        {% elif message.tags == 'info' %}
+            <script>M.toast({
+                html: "{{message}}",
+                classes: 'blue rounded',
+                displayLength: 2000
+            });</script>
+        {% elif message.tags == 'warning' %}
+            <script>M.toast({
+                html: "{{message}}",
+                classes: 'orange rounded',
+                displayLength: 10000
+            });</script>
+        {% elif message.tags == 'error' %}
+            <script>M.toast({
+                html: "{{message}}",
+                classes: 'red rounded',
+                displayLength: 10000
+            });</script>
+        {% endif %}
     {% endfor %}
 {% endif %}
 {% block scripts %}
