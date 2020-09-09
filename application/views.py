@@ -10,6 +10,7 @@ from application.models import *
 def register(request):
     """
     Navigate to register.html or handle POST request and create new user.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
@@ -44,6 +45,7 @@ def register(request):
 def login_view(request):
     """
     Navigate to login.html or handle POST request and log in user.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
@@ -65,7 +67,8 @@ def login_view(request):
 def apply(request):
     """
     Navigate to application-form.html or handle POST request and submit user
-    application
+    application.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
@@ -101,7 +104,8 @@ def apply(request):
 
 def logout_view(request):
     """
-    Log user out
+    Log user out.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
@@ -112,7 +116,8 @@ def logout_view(request):
 @login_required
 def profile(request):
     """
-    Load profile of logged in user
+    Load profile of logged in user.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
@@ -123,7 +128,8 @@ def profile(request):
 @login_required
 def user_detail(request, pk):
     """
-    Load profile of logged in user
+    Load profile of logged in user.
+
     :param pk: Primary Key that identifies user's profile to be loaded
     :param request: HTTP request from client
     :return: render to correct template
@@ -138,7 +144,8 @@ def user_detail(request, pk):
 @login_required
 def approve(request, pk):
     """
-    Approve user application
+    Approve user application.
+
     :param pk: Primary Key that identifies user to be approved
     :param request: HTTP request from client
     :return: render to correct template
@@ -156,7 +163,8 @@ def approve(request, pk):
 @login_required
 def disapprove(request, pk):
     """
-    Disapprove user application
+    Disapprove user application.
+
     :param pk: Primary Key that identifies user to be approved
     :param request: HTTP request from client
     :return: render to correct template
@@ -175,7 +183,8 @@ def disapprove(request, pk):
 @login_required
 def user_list(request):
     """
-    Fetch all registered users to display
+    Fetch all registered users to display.
+
     :param request: HTTP request from client
     :return: render to correct template
     """
