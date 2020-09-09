@@ -1,8 +1,8 @@
 from django.contrib import admin
-# Register your models here.
-from django.contrib.auth.models import User
 
 from application.models import Member, Team, Objective
+
+# Register your models here.
 
 admin.site.register(Team)
 admin.site.register(Objective)
