@@ -26,6 +26,7 @@ def register(request):
         about = request.POST['about']
         image = request.FILES['image']
         gender = request.POST['gender']
+        telephone = request.POST['telephone']
 
         user = User.objects.create_user(username=username, email=email,
                                         password=password,
@@ -34,7 +35,8 @@ def register(request):
         user.save()
         member = Member.objects.create(user=user, fav_color=fav_color,
                                        DOB=DOB, address=address, about=about,
-                                       image=image, gender=gender)
+                                       image=image, gender=gender,
+                                       telephone=telephone)
         member.save()
         messages.success(request, f"New account created: {username}")
         return redirect('application:login')
@@ -213,6 +215,7 @@ def edit_profile(request):
         password = request.POST['password']
         address = request.POST['address']
         about = request.POST['about']
+        telephone = request.POST['telephone']
 
         user = request.user
         user.email = email
@@ -222,6 +225,7 @@ def edit_profile(request):
         member.fav_color = fav_color
         member.address = address
         member.about = about
+        member.telephone = telephone
         member.save()
 
         messages.success(request, 'Profile details updated successfully!')

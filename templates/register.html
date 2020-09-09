@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col s12 m10 l8 offset-m1 offset-l2">
                 <div class="card-panel">
-                    <h4 class="card-title pink-text darken-2 center-align">Registration
+                    <h4 class="card-title pink-text darken-2 center-align">
+                        Registration
                         Form</h4>
                     <form action="{% url 'application:register' %}"
                           method="post" enctype="multipart/form-data">
@@ -29,6 +30,11 @@
                                        name="username" required
                                        class="validate" minlength="6">
                                 <label for="username">Username</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="telephone" type="tel" required
+                                       class="validate" name="telephone">
+                                <label for="telephone">Telephone</label>
                             </div>
                             <div class="input-field col s12">
                                 <input id="email" type="email" required
