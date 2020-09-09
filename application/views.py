@@ -188,3 +188,34 @@ def user_list(request):
                                           'disapproved': disapproved,
                                           'pending': pending,
                                           'incomplete': incomplete})
+
+
+@login_required
+def edit_profile(request):
+    """
+    Navigate to edit_profile.html or handle POST request and create new user.
+
+    :param request: HTTP request from client
+    :return: render to correct template
+    """
+    if request.method == 'POST':
+        email = request.POST['email']
+        fav_color = request.POST['fav_color']
+        password = request.POST['password']
+        address = request.POST['address']
+        about = request.POST['about']
+
+        user = request.user
+        user.email = email
+        user.set_password(password)
+
+        member = user.member
+        member.fav_color = fav_color
+        member.address = address
+        member.about = about
+        member.save()
+
+        messages.success(request, 'Profile details updated successfully!')
+        return redirect('application:profile')
+    elif request.method == 'GET':
+        return render(request, 'edit_profile.html')
