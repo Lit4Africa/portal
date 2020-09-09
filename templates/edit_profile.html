@@ -1,0 +1,98 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+{% block title %}
+    Register
+{% endblock %}
+{% block content %}
+    <div class="container section">
+        <div class="row">
+            <div class="col s12 m10 l8 offset-m1 offset-l2">
+                <div class="card-panel">
+                    <h4 class="card-title pink-text darken-2 center-align">
+                        Edit Profile</h4>
+                    <form action="{% url 'application:edit_profile' %}"
+                          method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col l6 m12 s12">
+                                <input id="first_name" name="first_name"
+                                       type="text" required disabled
+                                       value="{{ user.first_name }}">
+                                <label for="first_name">First Name</label>
+                            </div>
+                            <div class="input-field col l6 m12 s12">
+                                <input id="last_name" type="text"
+                                       name="last_name" required disabled
+                                       value="{{ user.last_name }}">
+                                <label for="last_name">Last Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="username" type="text"
+                                       name="username" required disabled
+                                       class="validate" minlength="6"
+                                       value="{{ user.username }}">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="email" type="email" required
+                                       class="validate" name="email"
+                                       value="{{ user.email }}">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input id="password" type="password" required
+                                       class="validate" name="password">
+                                <label for="password">New Password</label>
+                            </div>
+                            <div class="input-field col l6 m12 s12">
+                                <input id="dob" type="text" name="DOB"
+                                       class="datepicker" required disabled
+                                       value="{{ user.member.DOB }}">
+                                <label for="dob">Date of Birth</label>
+                            </div>
+                            <div class="input-field col l6 m12 s12">
+                                <input id="fav_color" required type="text"
+                                       class="validate" name="fav_color"
+                                       value="{{ user.member.fav_color }}"/>
+                                <label for="fav_color">Favorite Color</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="about" required name="about"
+                                          class="validate materialize-textarea">{{ user.member.about }}</textarea>
+                                <label for="about">About Me</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="address" required
+                                          class="validate materialize-textarea"
+                                          name="address">{{ user.member.address }}</textarea>
+                                <label for="address">Address</label>
+                            </div>
+                        </div>
+                        <div class="center-align">
+                            <button class="btn waves-effect waves-light"
+                                    type="submit" name="action">Save Details
+                                <i class="material-icons right">save</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        var currYear = (new Date()).getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.datepicker');
+            var options = {
+                autoClose: true,
+                format: 'yyyy-mm-dd',
+                defaultDate: (new Date(currYear - 5, 1, 31)),
+                maxDate: new Date(currYear - 5, 12, 31),
+                yearRange: [1928, currYear - 5],
+            }
+            var instances = M.Datepicker.init(elems, options);
+        });
+    </script>
+{% endblock %}
