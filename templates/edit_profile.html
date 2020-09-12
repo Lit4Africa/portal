@@ -1,7 +1,7 @@
 {% extends 'base_nav.html' %}
 {% load static %}
 {% block title %}
-    Register
+    Edit Profile
 {% endblock %}
 {% block content %}
     <div class="container section">
@@ -16,25 +16,29 @@
                         <div class="row">
                             <div class="input-field col l6 m12 s12">
                                 <input id="first_name" name="first_name"
-                                       type="text" required disabled
+                                       type="text" required
+                                        {#                                       disabled#}
                                        value="{{ user.first_name }}">
                                 <label for="first_name">First Name</label>
                             </div>
                             <div class="input-field col l6 m12 s12">
                                 <input id="last_name" type="text"
-                                       name="last_name" required disabled
+                                       name="last_name" required
+                                        {#                                       disabled#}
                                        value="{{ user.last_name }}">
                                 <label for="last_name">Last Name</label>
                             </div>
                             <div class="input-field col s12">
                                 <input id="username" type="text"
-                                       name="username" required disabled
+                                       name="username" required
+                                        {#                                       disabled#}
                                        class="validate" minlength="6"
                                        value="{{ user.username }}">
                                 <label for="username">Username</label>
                             </div>
                             <div class="input-field col s12">
                                 <input id="telephone" type="tel" required
+                                       value="{{ user.member.telephone }}"
                                        class="validate" name="telephone">
                                 <label for="telephone">Telephone</label>
                             </div>
@@ -51,8 +55,9 @@
                             </div>
                             <div class="input-field col l6 m12 s12">
                                 <input id="dob" type="text" name="DOB"
-                                       class="datepicker" required disabled
-                                       value="{{ user.member.DOB }}">
+                                       class="datepicker" required
+                                        {#                                       disabled#}
+                                       value="{{ user.member.DOB|date:'Y-m-d' }}">
                                 <label for="dob">Date of Birth</label>
                             </div>
                             <div class="input-field col l6 m12 s12">
@@ -60,6 +65,29 @@
                                        class="validate" name="fav_color"
                                        value="{{ user.member.fav_color }}"/>
                                 <label for="fav_color">Favorite Color</label>
+                            </div>
+                            <div class="col s12" id="gender">
+                                <label>Gender</label>
+                                <div>
+                                    <label>
+                                        <input class="with-gap" name="gender"
+                                               type="radio" value="F"
+                                                {% if user.member.gender == 'F' %}
+                                               checked
+                                                {% endif %}
+                                               id="gender-f"/>
+                                        <span>Female</span>
+                                    </label>
+                                    <label>
+                                        <input class="with-gap" name="gender"
+                                               type="radio" value="M"
+                                                {% if user.member.gender == 'M' %}
+                                               checked
+                                                {% endif %}
+                                               id="gender-m"/>
+                                        <span>Male</span>
+                                    </label>
+                                </div>
                             </div>
                             <div class="input-field col s12">
                                 <textarea id="about" required name="about"
