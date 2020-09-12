@@ -242,3 +242,12 @@ def edit_profile(request):
         return redirect('application:profile')
     elif request.method == 'GET':
         return render(request, 'edit_profile.html')
+
+
+@login_required
+def upload_image(request):
+    member = request.user.member
+    image = request.FILES['image']
+    member.image = image
+    member.save()
+    return redirect('application:profile')

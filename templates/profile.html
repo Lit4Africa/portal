@@ -55,11 +55,48 @@
                         <div class="section">
                             <a class="btn waves-effect pink-text
                             text-darken-2 white" role="button"
-                                    href="{% url 'application:edit_profile' %}">
+                               href="{% url 'application:edit_profile' %}">
                                 Edit Profile
                                 <i class="material-icons right">create</i>
                             </a>
+                            <a class="waves-effect btn btn-flat white-text modal-trigger"
+                               role="button" href="#upload">Change
+                                Picture<i class="material-icons right">insert_photo</i>
+                            </a>
                         </div>
+                    </div>
+                </div>
+                <div id="upload" class="modal">
+                    <div class="modal-content">
+                        <h4 class="pink-text text-darken-2">Change Profile
+                            Image</h4>
+                        <form action="{% url 'application:upload_image' %}"
+                              method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col s12">
+                                    <label>Profile Image</label>
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>Browse</span>
+                                            <input type="file" name="image"
+                                                   required>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate"
+                                                   type="text" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit"
+                                        class="modal-close btn waves-effect waves-light">
+                                    Submit<i
+                                        class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="card">
@@ -170,4 +207,12 @@
     </div>
     </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems);
+        });
+    </script>
 {% endblock %}
