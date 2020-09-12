@@ -210,14 +210,22 @@ def edit_profile(request):
     :return: render to correct template
     """
     if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        username = request.POST['username']
         email = request.POST['email']
+        DOB = request.POST['DOB']
         fav_color = request.POST['fav_color']
         password = request.POST['password']
         address = request.POST['address']
         about = request.POST['about']
         telephone = request.POST['telephone']
+        gender = request.POST['gender']
 
         user = request.user
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
         user.email = email
         user.set_password(password)
 
@@ -225,6 +233,8 @@ def edit_profile(request):
         member.fav_color = fav_color
         member.address = address
         member.about = about
+        member.DOB = DOB
+        member.gender = gender
         member.telephone = telephone
         member.save()
 
@@ -232,3 +242,12 @@ def edit_profile(request):
         return redirect('application:profile')
     elif request.method == 'GET':
         return render(request, 'edit_profile.html')
+
+
+@login_required
+def upload_image(request):
+    member = request.user.member
+    image = request.FILES['image']
+    member.image = image
+    member.save()
+    return redirect('application:profile')
