@@ -15,7 +15,8 @@
     <div class="container section">
         <div class="row">
             <div class="col s10 offset-s1">
-                <div class="card horizontal pink darken-2 white-text">
+                <div class="card horizontal white-text"
+                     style="background-color: #F1C470">
                     <div class="card-image">
                         <img src="{{ user_profile.member.image.url }}"
                              alt="Profile Image">
@@ -54,8 +55,8 @@
                         </h6>
                         {% if user_profile == user %}
                             <div class="section">
-                                <a class="btn waves-effect pink-text
-                            text-darken-2 white" role="button"
+                                <a class="btn waves-effect  white"
+                                   role="button" style="color: #F1C470"
                                    href="{% url 'application:edit_profile' %}">
                                     Edit Profile
                                     <i class="material-icons right">create</i>
@@ -70,7 +71,7 @@
                 </div>
                 <div id="upload" class="modal">
                     <div class="modal-content">
-                        <h4 class="pink-text text-darken-2">Change Profile
+                        <h4 style="color: #F1C470">Change Profile
                             Image</h4>
                         <form action="{% url 'application:upload_image' %}"
                               method="post" enctype="multipart/form-data">
@@ -182,7 +183,7 @@
                                         <a href="{% url 'application:disapprove' user_profile.id %}">Disapprove</a>
                                     </div>
                                 {% else %}
-                                    <div class="pink darken-2">
+                                    <div style="background-color: #F1C470">
                                         <h6 class="white-text center-align"
                                             style="padding: 1vw;margin: 2vw">
                                             AWAITING APPROVAL</h6>
@@ -190,14 +191,14 @@
                                     </div>
                                 {% endif %}
                             {% elif user_profile.member.is_approved == False %}
-                                <div class="pink darken-2">
+                                <div style="background-color: #F1C470">
                                     <h6 class="white-text center-align"
                                         style="padding: 1vw;margin: 2vw">
                                         DISAPPROVED</h6>
                                 </div>
                                 </div>
                             {% elif user_profile.member.is_approved == True %}
-                                <div class="pink darken-2">
+                                <div style="background-color: #F1C470">
                                     <h6 class="white-text center-align"
                                         style="padding: 1vw;margin: 2vw">
                                         APPROVED</h6>
